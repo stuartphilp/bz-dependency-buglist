@@ -397,6 +397,13 @@ function printList(unthrottled) {
     headerRow.appendChild(th);
   });
 
+  // header for qa-dashboard flag
+  var th = document.createElement("th");
+  th.textContent = "Show on qa-dashboard?";
+  th.className = "dashboard";
+  th.dataset.column = "dashboard";
+  headerRow.appendChild(th);
+
   var whiteboardFilter = getFilterValue(gFilterEls.whiteboard);
   // support searching for milestones with the shortened displayed text of "[MX]"
   whiteboardFilter = whiteboardFilter.replace(/^\[m/i, "[Australis:M");
@@ -562,6 +569,16 @@ function printList(unthrottled) {
       }
       tr.appendChild(col);
     });
+
+    // qa-dashboard checkbox
+    var col = document.createElement("td");
+    var a = document.createElement("input");
+    a.type = "checkbox"
+    a.name = "Show on dashboard?"
+    a.value = bug["whiteboard"].match("qa-dashboard") ? true : false;
+    col.appendChild(a);
+    tr.appendChild(col);
+
     tr.dataset.priority = bug["priority"].replace(/(\d)[-+]/, "$1");
     table.tBodies[0].appendChild(tr);
   });
